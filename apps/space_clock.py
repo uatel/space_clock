@@ -21,6 +21,8 @@ label = lv.label(rootLoading)
 label.set_text('Starting...')
 label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
 lv.disp_load_scr(rootLoading)
+power.setPowerLED(True)
+power.setVibrationEnable(True)
 label.set_text('Starting... ...')
 lv.disp_load_scr(rootLoading)
 from uiflow import wait
