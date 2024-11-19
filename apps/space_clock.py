@@ -10,6 +10,7 @@ try:
 except Exception as e:
   print("run clock")
 from m5stack import lv, rtc, speaker, power, touch
+from m5stack import *
 from m5stack_ui import *
 style, rootLoading  = lv.style_t(), lv.obj()
 style.init()
@@ -19,6 +20,8 @@ rootLoading.add_style(0,style)
 label = lv.label(rootLoading)
 label.set_text('Starting...')
 label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
+lv.disp_load_scr(rootLoading)
+label.set_text('Starting... ...')
 lv.disp_load_scr(rootLoading)
 from uiflow import wait
 wait(0.01)
