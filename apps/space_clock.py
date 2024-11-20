@@ -33,14 +33,11 @@ power.setPowerLED(False)
 power.setVibrationEnable(False)
 from easyIO import map_value
 sys.path.append("/flash/apps")
-label.set_text('Starting... 6')
-lv.disp_load_scr(rootLoading)
 def loadPNG(path):
   with open(path,'rb') as f: data = f.read()
   img_dsc = lv.img_dsc_t({'data_size': len(data),'data': data })
   return img_dsc
-label.set_text('Starting... PNG')
-lv.disp_load_scr(rootLoading)
+
 def getBrightness(hh,mm):
   if hh<6:
     if ADAPTIVE_BR: return(10)
@@ -53,8 +50,7 @@ def getBrightness(hh,mm):
   else:
     if ADAPTIVE_BR: return int(6*60-((hh-18)*60+mm))/(6*60)*(MAX_BR-MIN_BR)+MIN_BR
     else: return(MAX_BR)
-label.set_text('Starting... BRI')
-lv.disp_load_scr(rootLoading)
+
 def playAlarm():
   global wavFreez
   wavFreez = True
@@ -64,8 +60,7 @@ def playAlarm():
       speaker.playWAV(ALARM_WAV)
       wait(0.1)
   wavFreez = False
-label.set_text('Starting... ALM')
-lv.disp_load_scr(rootLoading)
+
 def playNotify():
   global wavFreez
   wavFreez = True
@@ -74,18 +69,19 @@ def playNotify():
     speaker.playWAV(NOTIFY_WAV)
     wait(0.1)
   wavFreez = False
-label.set_text('Starting... NOT')
-lv.disp_load_scr(rootLoading)
+
 def drawButtory():
   ch=""
   if (power.getChargeState()): ch="ch_"
   but_val=map_value((power.getBatVoltage()), 3.7, 4.1, 0, 3)
   image3.set_src(loadPNG(str("res/space_clock/battery_{}{}.png").format(ch,but_val)))
-label.set_text('Starting... BUT')
+label.set_text('Starting... 6')
 lv.disp_load_scr(rootLoading)
 MAX_BR, ADAPTIVE_BR, MIN_BR, UTC_ZONE, ALARM_WAV, NOTIFY_WAV, NOTIFY_PERIODIC=ConfigLoad()
 br,alarm_mode,alarm_mode_old,alarm_varius,alarms,wavFreez=MAX_BR,-1,-1,random.randint(0,1),getAlarms(),False
 power.setLCDBrightness(br)
+label.set_text('Starting... 7')
+lv.disp_load_scr(rootLoading)
 now, root = rtc.datetime(), lv.obj()
 root.add_style(0,style)
 label0,label1,label2 = lv.label(root),lv.label(root),lv.label(root)
@@ -99,6 +95,8 @@ label2.set_style_local_text_font(0,0,lv.font_montserrat_18)
 label2.set_style_local_text_color(0,0,lv.color_hex(0xf0a010))
 label2.set_text("initialization...")
 label2.align(root,lv.ALIGN.IN_TOP_MID, 0, 216)
+label.set_text('Starting... 8')
+lv.disp_load_scr(rootLoading)
 star=[]
 for i in range(0,7):
   star.append(lv.img(root))
