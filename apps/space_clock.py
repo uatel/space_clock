@@ -21,15 +21,17 @@ label = lv.label(rootLoading)
 label.set_text('Starting...')
 label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
 lv.disp_load_scr(rootLoading)
-power.setPowerLED(True)
-power.setVibrationEnable(True)
-label.set_text('Starting... ...')
-lv.disp_load_scr(rootLoading)
 from uiflow import wait
 wait(0.01)
+label.set_text('Starting... 2')
+lv.disp_load_scr(rootLoading)
 import sys, time, random, _thread, gc
 gc.collect()
+label.set_text('Starting... 3')
+lv.disp_load_scr(rootLoading)
 sys.path.append("/flash/sys")
+label.set_text('Starting... 4')
+lv.disp_load_scr(rootLoading)
 title_font,body_font=lv.font_montserrat_18,lv.font_montserrat_14
 from helper import *
 from notifications import getUnreadNotificationsCount
