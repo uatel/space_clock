@@ -79,7 +79,8 @@ def drawButtory():
 MAX_BR, ADAPTIVE_BR, MIN_BR, UTC_ZONE, ALARM_WAV, NOTIFY_WAV, NOTIFY_PERIODIC=ConfigLoad()
 br,alarm_mode,alarm_mode_old,alarm_varius,alarms,wavFreez=MAX_BR,-1,-1,random.randint(0,1),getAlarms(),False
 power.setLCDBrightness(br)
-
+label.set_text('Starting... 6')
+lv.disp_load_scr(rootLoading)
 now, root = rtc.datetime(), lv.obj()
 root.add_style(0,style)
 label0,label1,label2 = lv.label(root),lv.label(root),lv.label(root)
