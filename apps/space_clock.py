@@ -29,12 +29,8 @@ sys.path.append("/flash/sys")
 title_font,body_font=lv.font_montserrat_18,lv.font_montserrat_14
 from helper import *
 from notifications import getUnreadNotificationsCount
-label.set_text('Starting... 4')
-lv.disp_load_scr(rootLoading)
 power.setPowerLED(False)
 power.setVibrationEnable(False)
-label.set_text('Starting... 5')
-lv.disp_load_scr(rootLoading)
 from easyIO import map_value
 sys.path.append("/flash/apps")
 label.set_text('Starting... 6')
@@ -43,7 +39,8 @@ def loadPNG(path):
   with open(path,'rb') as f: data = f.read()
   img_dsc = lv.img_dsc_t({'data_size': len(data),'data': data })
   return img_dsc
-
+label.set_text('Starting... PNG')
+lv.disp_load_scr(rootLoading)
 def getBrightness(hh,mm):
   if hh<6:
     if ADAPTIVE_BR: return(10)
@@ -56,7 +53,8 @@ def getBrightness(hh,mm):
   else:
     if ADAPTIVE_BR: return int(6*60-((hh-18)*60+mm))/(6*60)*(MAX_BR-MIN_BR)+MIN_BR
     else: return(MAX_BR)
-
+label.set_text('Starting... BRI')
+lv.disp_load_scr(rootLoading)
 def playAlarm():
   global wavFreez
   wavFreez = True
@@ -66,7 +64,8 @@ def playAlarm():
       speaker.playWAV(ALARM_WAV)
       wait(0.1)
   wavFreez = False
-
+label.set_text('Starting... ALM')
+lv.disp_load_scr(rootLoading)
 def playNotify():
   global wavFreez
   wavFreez = True
@@ -75,13 +74,15 @@ def playNotify():
     speaker.playWAV(NOTIFY_WAV)
     wait(0.1)
   wavFreez = False
-
+label.set_text('Starting... NOT')
+lv.disp_load_scr(rootLoading)
 def drawButtory():
   ch=""
   if (power.getChargeState()): ch="ch_"
   but_val=map_value((power.getBatVoltage()), 3.7, 4.1, 0, 3)
   image3.set_src(loadPNG(str("res/space_clock/battery_{}{}.png").format(ch,but_val)))
-
+label.set_text('Starting... BUT')
+lv.disp_load_scr(rootLoading)
 MAX_BR, ADAPTIVE_BR, MIN_BR, UTC_ZONE, ALARM_WAV, NOTIFY_WAV, NOTIFY_PERIODIC=ConfigLoad()
 br,alarm_mode,alarm_mode_old,alarm_varius,alarms,wavFreez=MAX_BR,-1,-1,random.randint(0,1),getAlarms(),False
 power.setLCDBrightness(br)
