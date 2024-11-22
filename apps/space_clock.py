@@ -26,7 +26,8 @@ wait(0.01)
 import sys, time, random, _thread, gc
 gc.collect()
 sys.path.append("/flash/sys")
-title_font,body_font=lv.font_montserrat_18,lv.font_montserrat_14
+title_fontt=lv.font_montserrat_18
+body_font=lv.font_montserrat_14
 from helper import *
 from notifications import getUnreadNotificationsCount
 power.setPowerLED(False)
@@ -95,8 +96,7 @@ label2.set_style_local_text_font(0,0,lv.font_montserrat_18)
 label2.set_style_local_text_color(0,0,lv.color_hex(0xf0a010))
 label2.set_text("initialization...")
 label2.align(root,lv.ALIGN.IN_TOP_MID, 0, 216)
-label.set_text('Starting... 8')
-lv.disp_load_scr(rootLoading)
+
 star=[]
 for i in range(0,7):
   star.append(lv.img(root))
