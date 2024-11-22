@@ -23,6 +23,7 @@ label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
 lv.disp_load_scr(rootLoading)
 from uiflow import wait
 wait(0.01)
+from uiflow import *
 import sys, time, random, _thread, gc
 gc.collect()
 sys.path.append("/flash/sys")
