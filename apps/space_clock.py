@@ -87,11 +87,8 @@ label0 = lv.label(root)
 label1 = lv.label(root)
 label2 = lv.label(root)
 label0.set_pos(120,125)
-try:
-    label0.set_style_text_font(lv.font_montserrat_48, 0)
-except:
-    font_montserrat_48 = lv.font_load("/res/font/montserrat-48.fnt")
-    label0.set_style_text_font(font_montserrat_48, 0)  
+font_montserrat_48 = lv.font_load("/res/font/montserrat-48.fnt")
+label0.set_style_text_font(font_montserrat_48, 0)  
 
 label0.set_text(str("{:02d}:{:02d}").format(now[4],now[5]))
 label1.set_pos(125,175)
