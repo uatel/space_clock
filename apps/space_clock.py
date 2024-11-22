@@ -32,6 +32,8 @@ from helper import *
 from notifications import getUnreadNotificationsCount
 power.setPowerLED(False)
 power.setVibrationEnable(False)
+power.setBusPowerMode(0)
+power.setChargeCurrent(power.CURRENT_100MA)
 from easyIO import map_value
 sys.path.append("/flash/apps")
 def loadPNG(path):
