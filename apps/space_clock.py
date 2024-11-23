@@ -81,7 +81,11 @@ def drawButtory():
   image3.set_src(loadPNG(str("res/space_clock/battery_{}{}.png").format(ch,but_val)))
 
 def drawAcc():
-  label3.set_text(str(power.getBatPercent())+'%')
+  if (power.getBatPercent() == 100):
+    label3.set_text(str("{:03d}%").format(power.getBatPercent()))
+  else:
+    label3.set_text(str(" {:02d}%").format(power.getBatPercent()))
+
   
 
 MAX_BR, ADAPTIVE_BR, MIN_BR, UTC_ZONE, ALARM_WAV, NOTIFY_WAV, NOTIFY_PERIODIC=ConfigLoad()
@@ -106,6 +110,7 @@ label2.set_text("initialization...")
 label2.align(root,lv.ALIGN.IN_TOP_MID, 0, 216)
 label3.set_pos(40,5)
 
+
 star=[]
 for i in range(0,7):
   star.append(lv.img(root))
@@ -118,6 +123,7 @@ image1.set_pos(10,120)
 image1.set_src(loadPNG("res/space_clock/cosmonaut_0.png"))
 image3.set_pos(0,0)
 drawButtory()
+drawAcc()
 x,y,xl,yl = 10,120,random.randint(-1, 1),random.randint(-1, 1)
 lv.disp_load_scr(root)
 
@@ -201,8 +207,6 @@ def draw100sec():
   if alarm_mode==-1:
     br=getBrightness(now[4],now[5])
     power.setLCDBrightness(br)
-    #bar0 = M5Bar(x=245, y=224, w=70, h=12, min=0, max=100, bg_c=0xa0a0a0, color=0x068eff, parent=None)
-    #bar0.set_value((but_percent))
     drawButtory()  
     drawAcc()    
 
