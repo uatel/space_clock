@@ -81,11 +81,24 @@ def drawButtory():
   image3.set_src(loadPNG(str("res/space_clock/battery_{}{}.png").format(ch,but_val)))
 
 def drawAcc():
-  if (power.getBatPercent() == 100):
-    label3.set_text(str("{:03d}%").format(power.getBatPercent()))
+  global bat_percent
+  bat_percent = power.getBatPercent()
+  if power.getChargeState():
+    label3.set_hidden(True)
   else:
-    label3.set_text(str(" {:02d}%").format(power.getBatPercent()))
-
+    label3.set_hidden(False)  
+  if (bat_percent == 100):
+    label3.set_text(str("{:03d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0x33cc00))
+  elif (bat_percent < 100 and bat_percent >= 66):
+    label3.set_text(str(" {:02d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0xecf729))
+  elif (bat_percent < 66 and bat_percent >= 33):
+    label3.set_text(str(" {:02d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0xe99913))        
+  else:
+    label3.set_text(str(" {:02d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0xff0909))
   
 
 MAX_BR, ADAPTIVE_BR, MIN_BR, UTC_ZONE, ALARM_WAV, NOTIFY_WAV, NOTIFY_PERIODIC=ConfigLoad()
