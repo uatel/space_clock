@@ -80,6 +80,10 @@ def drawButtory():
   but_val=map_value((power.getBatVoltage()), 3.7, 4.1, 0, 3)
   image3.set_src(loadPNG(str("res/space_clock/battery_{}{}.png").format(ch,but_val)))
 
+def drawAcc():
+  label3.set_text(str(power.getBatPercent())+'%')
+  
+
 MAX_BR, ADAPTIVE_BR, MIN_BR, UTC_ZONE, ALARM_WAV, NOTIFY_WAV, NOTIFY_PERIODIC=ConfigLoad()
 br,alarm_mode,alarm_mode_old,alarm_varius,alarms,wavFreez=MAX_BR,-1,-1,random.randint(0,1),getAlarms(),False
 power.setLCDBrightness(br)
@@ -89,6 +93,7 @@ root.add_style(0,style)
 label0 = lv.label(root)
 label1 = lv.label(root)
 label2 = lv.label(root)
+label3 = lv.label(root)
 label0.set_pos(120,125)
 label0.set_style_local_text_font(0,0,lv.font_montserrat_38)  
 label0.set_text(str("{:02d}:{:02d}").format(now[4],now[5]))
@@ -99,6 +104,7 @@ label2.set_style_local_text_font(0,0,lv.font_montserrat_18)
 label2.set_style_local_text_color(0,0,lv.color_hex(0xf0a010))
 label2.set_text("initialization...")
 label2.align(root,lv.ALIGN.IN_TOP_MID, 0, 216)
+label3.set_pos(40,5)
 
 star=[]
 for i in range(0,7):
@@ -177,22 +183,28 @@ def draw05sec():
       elif y>200: y=200
   image1.set_pos(int(x), int(y))
 
+
 def draw25sec():
-  global but_state
+  global but_state, but_percent
   label0.set_text(str("{:02d}:{:02d}").format(now[4],now[5]))
   label1.set_text(str("{:02d}-{:02d}-{:04d}").format(now[2],now[1],now[0]))
   if alarm_mode==-1:
     star[random.randint(0, 6)].set_pos(random.randint(0, 300), random.randint(0,220))
     if (but_state!=power.getChargeState()):
       but_state=power.getChargeState()
+      but_percent=power.getBatPercent()
       drawButtory()
+      drawAcc()
 
 def draw100sec():
   global br
   if alarm_mode==-1:
     br=getBrightness(now[4],now[5])
     power.setLCDBrightness(br)
-    drawButtory()   
+    #bar0 = M5Bar(x=245, y=224, w=70, h=12, min=0, max=100, bg_c=0xa0a0a0, color=0x068eff, parent=None)
+    #bar0.set_value((but_percent))
+    drawButtory()  
+    drawAcc()    
 
 def NotifyUpdate():
   if alarm_mode==-1:
