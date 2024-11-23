@@ -76,6 +76,26 @@ def drawButtory():
   image2.set_offset_y(ch*40)
   image2.set_offset_x(-but_val*40)
 
+def drawAcc():
+  global bat_percent
+  bat_percent = power.getBatPercent()
+  if power.getChargeState():
+    label3.set_hidden(True)
+  else:
+    label3.set_hidden(False)  
+  if (bat_percent == 100):
+    label3.set_text(str("{:03d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0x33cc00))
+  elif (bat_percent < 100 and bat_percent >= 66):
+    label3.set_text(str(" {:02d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0xecf729))
+  elif (bat_percent < 66 and bat_percent >= 33):
+    label3.set_text(str(" {:02d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0xe99913))        
+  else:
+    label3.set_text(str(" {:02d}%").format(bat_percent))
+    label3.set_style_local_text_color(0,0,lv.color_hex(0xff0909))
+
 def redrawClock():
   global x, y, xl, yl, balls_edit, timerAlarm
   while wavFreez:
@@ -101,7 +121,7 @@ def redrawClock():
     if wavFreez == False: _thread.start_new_thread(playAlarm,())
     timerAlarm.init(period=1000, mode=Timer.PERIODIC, callback=drawAlarm)
   else:
-    label0.set_style_local_text_font(0,0,lv.font_montserrat_48)
+    label0.set_style_local_text_font(0,0,lv.font_montserrat_38)
     label0.set_pos(180,15)
     label1.set_style_local_text_font(0,0,title_font)
     label1.set_pos(185,65)
@@ -149,8 +169,9 @@ def draw25sec():
       image1.set_offset_x(x)
     if (but_state!=power.getChargeState()):
       but_state=power.getChargeState()
-      drawButtory()
+      drawButtory()  
     drFreez=False
+    drawAcc()
 
 def draw100sec():
   global br
@@ -158,6 +179,7 @@ def draw100sec():
     br=getBrightness(now[4],now[5])
     power.setLCDBrightness(br)
     drawButtory()
+    drawAcc()
 
 def onTouchPressed():
   global touched_pos, alarms, alarm_mode, fix_update
@@ -209,7 +231,7 @@ image3.set_src(loadPNG("res/christmas/back.png"))
 root.add_style(0,style)
 label0,label1,label2 = lv.label(root),lv.label(root),lv.label(root)
 label0.set_pos(180,15)
-label0.set_style_local_text_font(0,0,lv.font_montserrat_48)
+label0.set_style_local_text_font(0,0,lv.font_montserrat_38)
 label0.set_text(str("{:02d}:{:02d}").format(now[4],now[5]))
 label1.set_pos(185,65)
 label1.set_style_local_text_font(0,0,title_font)
@@ -218,7 +240,10 @@ label2.set_style_local_text_font(0,0,title_font)
 label2.set_style_local_text_color(0,0,lv.color_hex(0xf0a010))
 label2.set_text("initialization...")
 label2.align(root,lv.ALIGN.IN_TOP_MID, 0, 216)
+label3 = lv.label(root)
+label3.set_pos(40,5)
 drawButtory()
+drawAcc()
 x,y,xl,yl = 0,0,0,0
 lv.disp_load_scr(root)
 gc.collect()
