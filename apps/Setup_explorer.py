@@ -1,6 +1,7 @@
 from m5stack import lv, rtc, speaker, power, touch
 rootLoading = lv.obj()
 label = lv.label(rootLoading)
+lv.SYMBOL.
 label.set_text('Loading...')
 label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
 lv.disp_load_scr(rootLoading)
@@ -59,7 +60,7 @@ def showTime():
       wait(1)
       lv.disp_load_scr(subscreen)
     if wifiCfg.wlan_sta.isconnected():
-      rtc.settime('ntp', host='cn.pool.ntp.org', tzone=UTC_ZONE)
+      rtc.settime('ntp', host='europe.pool.ntp.org', tzone=UTC_ZONE)
       label_RTC.set_text("New RTC time:\n"+str(rtc.printRTCtime()))
     else:
       label_RTC.set_text("Error sync!\nTry later...")
@@ -328,6 +329,14 @@ def showWiFi():
   label.set_text('Loading...')
   lv.disp_load_scr(root)
 
+def showStyle():
+  global subscreen
+  subscreen = lv.obj()
+  subscreen.set_style_local_text_font(0,0,body_font)
+  #vibrating()
+  wait(0.01)
+  lv.disp_load_scr(subscreen)
+
 def showSystem():
   global subscreen
   def cl_reboot():
@@ -414,8 +423,10 @@ def event_handler(obj, event):
       _thread.start_new_thread(showAudio,())
     elif list_btn.get_btn_text()=="Notification":
       _thread.start_new_thread(showNotify,())
-    elif list_btn.get_btn_text()=="WiFi":
+    elif list_btn.get_btn_text()=="Wi-Fi":
       _thread.start_new_thread(showWiFi,())
+    elif list_btn.get_btn_text()=="Clock style":
+      _thread.start_new_thread(showStyle,())        
     elif list_btn.get_btn_text()=="System":
       _thread.start_new_thread(showSystem,())
 
@@ -445,9 +456,10 @@ tabs = [[lv.SYMBOL.BELL, "Time"],
         [lv.SYMBOL.CHARGE, "Screen"],
         [lv.SYMBOL.AUDIO, "Audio"],
         [lv.SYMBOL.AUDIO, "Notification"],
-        [lv.SYMBOL.WIFI, "WiFi"],
+        [lv.SYMBOL.WIFI, "Wi-Fi"],
+        [lv.SYMBOL.HOME, "Clock style"],        
         [lv.SYMBOL.SETTINGS, "System"],]
-for i in range(0,6):
+for i in range(0,7):
   list_btn = list1.add_btn(tabs[i][0],tabs[i][1])
   list_btn.set_event_cb(event_handler)
 lv.disp_load_scr(root)
