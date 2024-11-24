@@ -355,7 +355,7 @@ def showStyle():
     if "_clock.py" in filename:
       clocks.append(filename)
   clocks_ind=-1
-  counta=-1
+  countA=-1
   try:
     file = open('/flash/main.py')
     filetext = file.read()
