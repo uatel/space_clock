@@ -330,6 +330,7 @@ def showWiFi():
 
 def showStyle():
   global subscreen
+  global clocks
   vibrating()
   subscreen = lv.obj()
   subscreen.set_style_local_text_font(0,0,body_font)
@@ -354,16 +355,17 @@ def showStyle():
     if "_clock.py" in filename:
       clocks.append(filename)
   clocks_ind=-1
+  counta=-1
   try:
     file = open('/flash/main.py')
     filetext = file.read()
     file.close()
-      for i,d in enumerate(clocks):
-        wordA=d
-        countA=filetext.count(wordA);
-        if countA>0:
-          clocks_ind=i
-          break
+    for i,d in enumerate(clocks):
+      wordA=d
+      countA=filetext.count(wordA);
+      if countA>0:
+        clocks_ind=i
+        break
   except Exception as e:
     label_info.set_text(str(e))
     label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
