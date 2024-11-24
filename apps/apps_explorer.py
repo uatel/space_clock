@@ -29,7 +29,7 @@ label_close,list1 = lv.label(root),lv.list(root)
 label_close.set_pos(238,220)
 label_close.add_style(lv.label.PART.MAIN, label_shadow_style)
 label_close.set_text(lv.SYMBOL.CLOSE+" close")
-ind_run,apps,_ignore=-1,os.listdir("/flash/apps"),["_clock","apps_explorer"]
+ind_run,apps,_ignore=-1,os.listdir("/flash/apps"),["space_clock", "christmas_tree_clock","apps_explorer"]
 for l in _ignore:
   i=0
   while i<len(apps):
