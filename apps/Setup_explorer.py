@@ -353,25 +353,22 @@ def showStyle():
   for filename in os.listdir('/flash/apps'):
     if "_clock.py" in filename:
       clocks.append(filename)
-  #clocks_ind=-1
+  clocks_ind=-1
   #for i,d in enumerate(clocks):
     #if d in ALARM_WAV:
       #clocks_ind=i
       #break
   countA=-1
-  countB=-1
   try:
     file = open('/flash/main.py')
     filetext = file.read()
     file.close()
-    wordA="space_clock.py"
-    wordB="christmas_tree_clock.py"
+    wordA="_clock.py"
     countA=filetext.count(wordA);
-    countB=filetext.count(wordB);
     if countA>0:
       label_info.set_text("cntA = "+str(countA))
     else:
-      label_info.set_text("cntB = "+str(countB))
+      label_info.set_text("empty")
   except Exception as e:
     label_info.set_text(str(e))
     label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
