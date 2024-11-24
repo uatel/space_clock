@@ -354,21 +354,16 @@ def showStyle():
     if "_clock.py" in filename:
       clocks.append(filename)
   clocks_ind=-1
-  #for i,d in enumerate(clocks):
-    #if d in ALARM_WAV:
-      #clocks_ind=i
-      #break
-  countA=-1
   try:
     file = open('/flash/main.py')
     filetext = file.read()
     file.close()
-    wordA="_clock.py"
-    countA=filetext.count(wordA);
-    if countA>0:
-      label_info.set_text("cntA = "+str(countA))
-    else:
-      label_info.set_text("empty")
+      for i,d in enumerate(clocks):
+        wordA=d
+        countA=filetext.count(wordA);
+        if countA>0:
+          clocks_ind=i
+          break
   except Exception as e:
     label_info.set_text(str(e))
     label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
@@ -381,6 +376,8 @@ def showStyle():
       #fileB.close()
       #deviceCfg.set_device_mode(2)
       #machine.reset()
+  if clocks_ind > 0:
+    label_info.set_text(str(clocks_ind))
   ddlist = lv.dropdown(page)
   ddlist.set_options("\n".join(clocks))
   ddlist.set_pos(30,45)
