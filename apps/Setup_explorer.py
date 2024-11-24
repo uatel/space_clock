@@ -1,7 +1,6 @@
 from m5stack import lv, rtc, speaker, power, touch
 rootLoading = lv.obj()
 label = lv.label(rootLoading)
-lv.SYMBOL.
 label.set_text('Loading...')
 label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
 lv.disp_load_scr(rootLoading)
