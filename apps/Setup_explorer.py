@@ -330,10 +330,66 @@ def showWiFi():
 
 def showStyle():
   global subscreen
+  vibrating()
   subscreen = lv.obj()
   subscreen.set_style_local_text_font(0,0,body_font)
-  #vibrating()
-  wait(0.01)
+  page, label_cl = lv.obj(subscreen), lv.label(subscreen)
+  page.set_size(320,215)
+  page.set_click(False)
+  label_cl.set_pos(238,220)
+  label_cl.add_style(lv.label.PART.MAIN, label_shadow_style)
+  label_cl.set_text(lv.SYMBOL.CLOSE+" close")
+  label=lv.label(page,None)
+  label.set_text("Default clock style:")
+  label.set_pos(10, 20)
+  label_info=lv.label(page,None)
+  label_info.set_pos(10,120)
+  label_info.set_text("")
+  def event_list_handler(obj, event):
+    if event == lv.EVENT.VALUE_CHANGED:
+      if ddlist==obj:
+        label_info.set_text(str("{}").format(clocks[obj.get_selected()]))
+  clocks=[]
+  for filename in os.listdir('/flash/apps'):
+    if "_clock.py" in filename:
+      clocks.append(filename)
+  #clocks_ind=-1
+  #for i,d in enumerate(clocks):
+    #if d in ALARM_WAV:
+      #clocks_ind=i
+      #break
+  countA=-1
+  countB=-1
+  try:
+    file = open('/flash/main.py')
+    filetext = file.read()
+    file.close()
+    wordA="space_clock.py"
+    wordB="christmas_tree_clock.py"
+    countA=filetext.count(wordA);
+    countB=filetext.count(wordB);
+    if countA>0:
+      label_info.set_text("cntA = "+str(countA))
+    else:
+      label_info.set_text("cntB = "+str(countB))
+  except Exception as e:
+    label_info.set_text(str(e))
+    label.align(rootLoading,lv.ALIGN.CENTER, 0, 0)
+    lv.disp_load_scr(rootLoading)
+    wait(2)
+      #import machine, deviceCfg
+      #fileA, fileB = open('/flash/apps/space_clock.py', 'rb'), open('/flash/main.py', 'wb')
+      #fileB.write(fileA.read())
+      #fileA.close()
+      #fileB.close()
+      #deviceCfg.set_device_mode(2)
+      #machine.reset()
+  ddlist = lv.dropdown(page)
+  ddlist.set_options("\n".join(clocks))
+  ddlist.set_pos(30,45)
+  ddlist.set_size(210,30)
+  #ddlist.set_selected(clocks_ind)
+  ddlist.set_event_cb(event_list_handler)
   lv.disp_load_scr(subscreen)
 
 def showSystem():
