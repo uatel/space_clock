@@ -351,6 +351,7 @@ def showStyle():
       if ddlist==obj:
         label_info.set_text(str("{}").format(clocks[obj.get_selected()]))
   clocks=[]
+  clocks.append("Select clock style")
   for filename in os.listdir('/flash/apps'):
     if "_clock.py" in filename:
       clocks.append(filename)
@@ -378,13 +379,17 @@ def showStyle():
       #fileB.close()
       #deviceCfg.set_device_mode(2)
       #machine.reset()
-  if clocks_ind > 0:
-    label_info.set_text(str(clocks_ind))
+  #if clocks_ind > -1:
+    #label_info.set_text(str(clocks_ind))
   ddlist = lv.dropdown(page)
   ddlist.set_options("\n".join(clocks))
   ddlist.set_pos(30,45)
   ddlist.set_size(210,30)
-  #ddlist.set_selected(clocks_ind)
+  if clocks_ind > -1:
+    ddlist.set_selected(clocks_ind)
+  else
+    clocks_ind=1
+    ddlist.set_selected(1)
   ddlist.set_event_cb(event_list_handler)
   lv.disp_load_scr(subscreen)
 
